@@ -29,6 +29,7 @@ z-index: 2;
     display: flex;
     gap: 2rem;
     .icon{
+        cursor: pointer;
         height: ${calcTamanhoDeComponentes(sizeIcon)};
         width: ${calcTamanhoDeComponentes(sizeIcon)};
         font-size: 1.5rem;
@@ -47,7 +48,6 @@ z-index: 2;
     }
     .translateMode{
         font-size: 2rem;
-        cursor: pointer;
     }
     .iconPage{
         img{

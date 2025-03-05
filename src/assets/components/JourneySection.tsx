@@ -2,9 +2,16 @@ import styled from "styled-components";
 import { StyleConfig } from "../config/styles.config";
 import { TitleStyle } from "./Main";
 import { useMyContext } from "../context/ThemeContext";
-const { calcTamanhoDeComponentes , dark , light} = StyleConfig
+import { InView } from "react-intersection-observer";
+const { calcTamanhoDeComponentes, dark, light } = StyleConfig
 const { percent10 } = StyleConfig.light.colors
 
+type Li = {
+    MasterTitle: string
+    listTitles: string[]
+    listSubtitles: (string | null | undefined)[]
+    hasSubtitle: boolean,
+}
 const StyleJourneySection = styled.section`
     width: 100%;
     display: flex;
@@ -30,7 +37,7 @@ const StyleJourneySection = styled.section`
     }
     
 `;
-const ContentJourneyStyle = styled.div<{tema : boolean}>`
+const ContentJourneyStyle = styled.div<{ tema: boolean }>`
     height: fit-content;
     display: flex;
     margin-left: 4rem;
@@ -71,7 +78,7 @@ const ContentJourneyStyle = styled.div<{tema : boolean}>`
                 gap: 1rem;
                 li { 
                     h4{
-                        color: ${({tema}) => tema ? light.text.journey.titleItems : dark.text.journey.titleItems};
+                        color: ${({ tema }) => tema ? light.text.journey.titleItems : dark.text.journey.titleItems};
                     }
                     h5{
                         color: #8A8A8A;
@@ -81,31 +88,24 @@ const ContentJourneyStyle = styled.div<{tema : boolean}>`
         }
     }
 `
-type Li = {
-    MasterTitle: string
-    listTitles: string[]
-    listSubtitles: (string | null | undefined)[]
-    hasSubtitle: boolean
-}
 const ContentJourney = ({ MasterTitle, hasSubtitle, listTitles, listSubtitles }: Li) => {
-    const {themes} = useMyContext()
+    const { themes } = useMyContext()
     const temas = themes ?? true
     const renderLi = () => {
-        return hasSubtitle ? 
-        listTitles.map(
-            (el,index) => (
-                <li>
-                    <h4>{el}</h4>
-                    <h5>{listSubtitles[index]}</h5>
-                </li>
-            )) 
-        : listTitles.map((el) => ( 
+        return hasSubtitle ?
+            listTitles.map(
+                (el, index) => (
+                    <li>
+                        <h4>{el}</h4>
+                        <h5>{listSubtitles[index]}</h5>
+                    </li>
+                ))
+            : listTitles.map((el) => (
                 <li>
                     <h4>{el}</h4>
                 </li>
             ))
     }
-
     return (
         <ContentJourneyStyle tema={temas}>
             <aside><div className="bar" /></aside>
@@ -128,45 +128,47 @@ const ContentJourney = ({ MasterTitle, hasSubtitle, listTitles, listSubtitles }:
 }
 
 function JourneySection() {
-    const {themes} = useMyContext()
+    const { themes } = useMyContext()
     const temas = themes ?? true
-    return (
-        <StyleJourneySection>
-            <section id="jornada">
-                <div className="jornadaHead">
-                    <TitleStyle tema={temas}>
-                        Jornada do herói
-                    </TitleStyle>
-                </div>
-                <div className="conteiner">
-                    <ContentJourney 
-                    hasSubtitle={true} 
-                    MasterTitle="Educação" 
-                    listSubtitles={["2020-2024","2022-2024","2024-cursando"]} 
-                    listTitles={["Ensino Médio - C.E Liceu maranhense","Curso - Incode Tech School","Ensino Superior - Universidade CEUMA"]}
-                    />
-                    <ContentJourney 
-                    hasSubtitle={false} 
-                    MasterTitle="Hard Skills" 
-                    listSubtitles={[]} 
-                    listTitles={["Desenvolvimento Back-end Avançado","Desenvolvimento front-end intermediário","Desenvolvimento Mobile Android Iniciante"]}
-                    />
-                    <ContentJourney 
 
-                    hasSubtitle={false} 
-                    MasterTitle="Soft Skills" 
-                    listSubtitles={[]} 
-                    listTitles={["Comunicativo","Adaptabilidade","Resiliente","Criatividade","Liderança"]}
-                    />
-                    <ContentJourney 
-                    hasSubtitle={false} 
-                    MasterTitle="Premios" 
-                    listSubtitles={[]} 
-                    listTitles={["3° lugar - Startup Weekend 2022 Cidades Inteligentes"]}
-                    />
-                </div>
-            </section>
-        </StyleJourneySection>
+    return (
+        <InView onChange={(el) => { console.log(el) }}>
+            <StyleJourneySection>
+                <section id="jornada">
+                    <div className="jornadaHead">
+                        <TitleStyle tema={temas}>
+                            Jornada do herói
+                        </TitleStyle>
+                    </div>
+                    <div className="conteiner">
+                        <ContentJourney
+                            hasSubtitle={true}
+                            MasterTitle="Educação"
+                            listSubtitles={["2020-2024", "2022-2024", "2024-cursando"]}
+                            listTitles={["Ensino Médio - C.E Liceu maranhense", "Curso - Incode Tech School", "Ensino Superior - Universidade CEUMA"]}
+                        />
+                        <ContentJourney
+                            hasSubtitle={false}
+                            MasterTitle="Hard Skills"
+                            listSubtitles={[]}
+                            listTitles={["Desenvolvimento Back-end Avançado", "Desenvolvimento front-end intermediário", "Desenvolvimento Mobile Android Iniciante"]}
+                        />
+                        <ContentJourney
+                            hasSubtitle={false}
+                            MasterTitle="Soft Skills"
+                            listSubtitles={[]}
+                            listTitles={["Comunicativo", "Adaptabilidade", "Resiliente", "Criatividade", "Liderança"]}
+                        />
+                        <ContentJourney
+                            hasSubtitle={false}
+                            MasterTitle="Premios"
+                            listSubtitles={[]}
+                            listTitles={["3° lugar - Startup Weekend 2022 Cidades Inteligentes"]}
+                        />
+                    </div>
+                </section>
+            </StyleJourneySection>
+        </InView>
     )
 }
 export default JourneySection

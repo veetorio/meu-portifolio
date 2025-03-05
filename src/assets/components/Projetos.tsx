@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TitleStyle } from "./Main";
+import { Redirect, TitleStyle } from "./Main";
 import "swiper/swiper-bundle.css"
 import { IoCodeSlashOutline, IoLogoGithub } from "react-icons/io5";
 import { MdArrowOutward } from "react-icons/md";
@@ -144,7 +144,7 @@ function Projects() {
                     <Projeto tipoProjeto={Gradients.BACKEND} name="Projeto 1"></Projeto>
                     <Projeto tipoProjeto={Gradients.FRONT} name="Projeto 2"></Projeto>
                 </div>
-                <button className="link"> <h3>quer ver mais projetos</h3><IoLogoGithub className="i"/></button>
+                <button className="link" onClick={() => { Redirect("https://github.com/veetorio?tab=repositories") }}> <h3>quer ver mais projetos</h3><IoLogoGithub className="i"/></button>
             </div>
         </StyleProjects>
     )

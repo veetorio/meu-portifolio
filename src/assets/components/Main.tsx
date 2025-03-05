@@ -3,7 +3,7 @@ import { StyleConfig } from "../config/styles.config";
 import { IoIosArrowForward } from "react-icons/io";
 import { useMyContext } from "../context/ThemeContext";
 
-const { calcTamanhoDeComponentes, light  , dark} = StyleConfig
+const { calcTamanhoDeComponentes, light, dark } = StyleConfig
 const StyleMain = styled.main`
 position: relative;
 z-index: 1;
@@ -64,20 +64,7 @@ img{
     
 
 `;
-
-export const TitleStyle = styled.h1<{tema : boolean}>`
-    font-weight: 600;
-    background: ${({tema}) => tema ? light.gradients.blackAndPurple : dark.gradients.PurpleBlackAndPurple};
-    background-clip: text;
-    font-size: 2rem;
-    color: transparent;
-    width: fit-content;
-
-
-
-`
-
- const Contatos = styled.div`
+const Contatos = styled.div`
 display: flex;
 align-items: center;
 gap: 4rem;
@@ -108,53 +95,77 @@ cursor: pointer;
 
 
 `
+
+export const TitleStyle = styled.h1<{ tema: boolean }>`
+    font-weight: 600;
+    background: ${({ tema }) => tema ? light.gradients.blackAndPurple : dark.gradients.PurpleBlackAndPurple};
+    background-clip: text;
+    font-size: 2rem;
+    color: transparent;
+    width: fit-content;
+
+
+
+`
+export const Redirect = (url: string) => {
+    location.href = url
+}
+
+
 function Main() {
-    const {themes} = useMyContext()
-    const date =new Date()
+    const { themes } = useMyContext()
+    const date = new Date()
     const years = date.getFullYear() - 2006
+
     return (
-        <StyleMain id="sobre-mim">
-            <div className="conteinerHead">
-                <TitleStyle tema={themes ?? true}>Sobre mim</TitleStyle>
-            </div>
-            <div className="conteinerMain">
-                <aside>
-                    <h5>sou um maluco por tecnologia e sempre gostei de usar meus  conhecimentos para resolver problemas. Hoje estou cursando e engenharia da computação.</h5>
-                    <h2>Dev. backend & Engenheiro de computação</h2>
-                    <div>
-                        <article>
-                            <h2>Contatos</h2>
-                            <ul>
-                                <li>
-                                    <Contatos><span>GitHub</span><IoIosArrowForward className="iconArrow" /></Contatos>
-                                </li>
-                                <li>
-                                    <Contatos><span>Linkedin</span><IoIosArrowForward className="iconArrow" /></Contatos>
-                                </li>
-                                <li>
-                                    <Contatos><span>CV</span><IoIosArrowForward className="iconArrow" /></Contatos>
-                                </li>
-                            </ul>
-                        </article>
-                        <article>
-                            <h2>Detalhes</h2>
-                            <ul>
-                                <li>
-                                    <span>Nome :</span><span className="details"> Ettore Vitorio</span>
-                                </li>
-                                <li>
-                                    <span>Idade :</span><span className="details">{years} anos</span>
-                                </li>
-                                <li>
-                                    <span>Nacionalidade :</span><span className="details">Brasileiro</span>
-                                </li>
-                            </ul>
-                        </article>
-                    </div>
-                </aside>
-                <img src="../../../public/image.png" alt="" />
-            </div>
-        </StyleMain>
+            <StyleMain id="sobre-mim">
+                <div className="conteinerHead">
+                    <TitleStyle tema={themes ?? true}>Sobre mim</TitleStyle>
+                </div>
+                <div className="conteinerMain">
+                    <aside>
+                        <h5>sou um maluco por tecnologia e sempre gostei de usar meus  conhecimentos para resolver problemas. Hoje estou cursando e engenharia da computação.</h5>
+                        <h2>Dev. backend & Engenheiro de computação</h2>
+                        <div>
+                            <article>
+                                <h2>Contatos</h2>
+                                <ul>
+                                    <li>
+                                        <Contatos onClick={() => { Redirect("https://github.com/veetorio") }}>
+                                            <span>GitHub</span><IoIosArrowForward className="iconArrow" />
+                                        </Contatos>
+                                    </li>
+                                    <li>
+                                        <Contatos onClick={() => { Redirect("https://www.linkedin.com/in/ettore-vitorio-b38135280/") }}>
+                                            <span>Linkedin</span><IoIosArrowForward className="iconArrow" />
+                                        </Contatos>
+                                    </li>
+                                    <li>
+                                        <Contatos onClick={() => { Redirect("../../../public/Currículo (4).pdf") }}>
+                                            <span>CV</span><IoIosArrowForward className="iconArrow" />
+                                        </Contatos>
+                                    </li>
+                                </ul>
+                            </article>
+                            <article>
+                                <h2>Detalhes</h2>
+                                <ul>
+                                    <li>
+                                        <span>Nome :</span><span className="details"> Ettore Vitorio</span>
+                                    </li>
+                                    <li>
+                                        <span>Idade :</span><span className="details">{years} anos</span>
+                                    </li>
+                                    <li>
+                                        <span>Nacionalidade :</span><span className="details">Brasileiro</span>
+                                    </li>
+                                </ul>
+                            </article>
+                        </div>
+                    </aside>
+                    <img src="../../../public/image.png" alt="" />
+                </div>
+            </StyleMain >
     )
 }
 export default Main

@@ -43,6 +43,7 @@ section , button , input , textarea{
         border: 1px solid ${percent10};
     }
 }
+
 section{
     padding: 2rem;
     display: flex;
