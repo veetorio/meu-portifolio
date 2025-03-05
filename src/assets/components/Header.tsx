@@ -36,10 +36,10 @@ z-index: 2;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: ${({tema}) => tema ? percent10 : "white"};
+        color: ${({tema}) => tema ? percent30 : "white"};
     }
     .LightOrDark{
-        background-color: ${percent30};
+        background-color: ${({tema}) => tema ? percent30 : "white"};
         border-radius: 50%;
         color: ${({tema}) => tema ? "white" : "black"};
         cursor: pointer;

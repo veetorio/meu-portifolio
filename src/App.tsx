@@ -17,7 +17,7 @@ type Theme = {
 const Global = createGlobalStyle`
   @font-face {
     font-family: "Poppins";
-    src: url("../../../public/fonts/Poppins/Poppins-Regular.ttf") , url("../public/fonts/Poppins/Poppins-SemiBold.ttf");
+    src: url("../../../public/fonts/Poppins/Poppins-Regular.ttf") format("ttf");
   }
   * {
     transition:background 1s;
