@@ -3,6 +3,7 @@ import { StyleConfig } from "../config/styles.config";
 import { MdOutlineGTranslate } from "react-icons/md";
 import { IoMoonOutline } from "react-icons/io5";
 import { useMyContext } from "../context/ThemeContext";
+import Icon from "./shared/icons/Icons";
 
 const { calcTamanhoDeComponentes, light , dark } = StyleConfig
 const { colors } = light  
@@ -92,7 +93,7 @@ function Header() {
         <StyleHeader tema={context.themes ?? false}>
             <div className="conteiner">
                 <div className="actions">
-                    <div className="iconPage icon"><img src="../../../public/sonic-runners-svgrepo-com 1.svg" alt="" /></div>
+                    <div className="iconPage icon"><Icon/></div>
                     <button className="LightOrDark icon" onClick={toggle}>
                         <IoMoonOutline />
                     </button>
