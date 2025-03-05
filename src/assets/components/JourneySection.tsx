@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { StyleConfig } from "../config/styles.config";
 import { TitleStyle } from "./Main";
-const { calcTamanhoDeComponentes } = StyleConfig
+import { useMyContext } from "../context/ThemeContext";
+const { calcTamanhoDeComponentes , dark , light} = StyleConfig
 const { percent10 } = StyleConfig.light.colors
 
 const StyleJourneySection = styled.section`
@@ -29,7 +30,7 @@ const StyleJourneySection = styled.section`
     }
     
 `;
-const ContentJourneyStyle = styled.div`
+const ContentJourneyStyle = styled.div<{tema : boolean}>`
     height: fit-content;
     display: flex;
     margin-left: 4rem;
@@ -70,7 +71,7 @@ const ContentJourneyStyle = styled.div`
                 gap: 1rem;
                 li { 
                     h4{
-                        color: #303030;
+                        color: ${({tema}) => tema ? light.text.journey.titleItems : dark.text.journey.titleItems};
                     }
                     h5{
                         color: #8A8A8A;
@@ -87,6 +88,8 @@ type Li = {
     hasSubtitle: boolean
 }
 const ContentJourney = ({ MasterTitle, hasSubtitle, listTitles, listSubtitles }: Li) => {
+    const {themes} = useMyContext()
+    const temas = themes ?? true
     const renderLi = () => {
         return hasSubtitle ? 
         listTitles.map(
@@ -104,7 +107,7 @@ const ContentJourney = ({ MasterTitle, hasSubtitle, listTitles, listSubtitles }:
     }
 
     return (
-        <ContentJourneyStyle>
+        <ContentJourneyStyle tema={temas}>
             <aside><div className="bar" /></aside>
             <div className="content">
                 <div className="head">
@@ -125,11 +128,13 @@ const ContentJourney = ({ MasterTitle, hasSubtitle, listTitles, listSubtitles }:
 }
 
 function JourneySection() {
+    const {themes} = useMyContext()
+    const temas = themes ?? true
     return (
         <StyleJourneySection>
             <section id="jornada">
                 <div className="jornadaHead">
-                    <TitleStyle>
+                    <TitleStyle tema={temas}>
                         Jornada do herói
                     </TitleStyle>
                 </div>
@@ -147,6 +152,7 @@ function JourneySection() {
                     listTitles={["Desenvolvimento Back-end Avançado","Desenvolvimento front-end intermediário","Desenvolvimento Mobile Android Iniciante"]}
                     />
                     <ContentJourney 
+
                     hasSubtitle={false} 
                     MasterTitle="Soft Skills" 
                     listSubtitles={[]} 

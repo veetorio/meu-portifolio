@@ -11,8 +11,9 @@ import Ts from "./shared/icons/Ts";
 import MySql from "./shared/icons/MySql";
 import Git from "./shared/icons/Git";
 import Postgress from "./shared/icons/Postgres";
-const { calcTamanhoDeComponentes } = StyleConfig
-const StyleMyStack = styled.div`
+import { useMyContext } from "../context/ThemeContext";
+const { calcTamanhoDeComponentes , light , dark } = StyleConfig
+const StyleMyStack = styled.div<{tema : boolean}>`
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -24,23 +25,25 @@ const StyleMyStack = styled.div`
         display: flex;
         position: relative;
         &::after{
+            transition: background 1s;
             content: " ";
             position: absolute;
             width: 2.5rem;
             height: 100%;
-            background: linear-gradient(to left,white,transparent);
+            background: linear-gradient(to left,${({tema}) => tema ? light.colors.percent60 : dark.colors.percent60},transparent);
             z-index: 1;
             right: 0;
             
         }
         &::before{
+            transition: background 1s;
             content: " ";
             position: absolute;
             z-index: 1;
             left: 0;
             width: 2.5rem;
             height: 100%;
-            background: linear-gradient(to right,white,transparent);
+            background: linear-gradient(to right,${({tema}) => tema ? light.colors.percent60 : dark.colors.percent60},transparent);
         }
         .slide{
             display: flex;
@@ -77,10 +80,11 @@ const Item = styled.div`
 `
 
 function MyStack() {
+    const {themes} = useMyContext()
 
     return (
-        <StyleMyStack>
-            <TitleStyle>Minha Stack</TitleStyle>
+        <StyleMyStack tema={themes ?? true}>
+            <TitleStyle tema={themes ?? true}>Minha Stack</TitleStyle>
             <div className="conteiner">
                 <div className="slide">
                     <Item className="item"><Spring/></Item>

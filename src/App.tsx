@@ -6,6 +6,13 @@ import JourneySection from "./assets/components/JourneySection"
 import MyStack from "./assets/components/MyStack"
 import Projects from "./assets/components/Projetos"
 import Footer from "./assets/components/Footer"
+import { useMyContext } from "./assets/context/ThemeContext"
+import { StyleConfig } from "./assets/config/styles.config"
+
+
+type Theme = {
+  tema : boolean
+}
 
 const Global = createGlobalStyle`
   @font-face {
@@ -13,6 +20,7 @@ const Global = createGlobalStyle`
     src: url("../../../public/fonts/Poppins/Poppins-Regular.ttf") , url("../public/fonts/Poppins/Poppins-SemiBold.ttf");
   }
   * {
+    transition:background 1s;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -22,20 +30,29 @@ const Global = createGlobalStyle`
   }
   `
 
+const { dark , light } = StyleConfig
+const AppStyle = styled.div<Theme>`
+    background: ${({tema}) => tema ? light.colors.percent60 : dark.colors.percent60};
+    color : ${({tema}) => tema ? "black" : "white"}
+    
+    
+  `
 
-const AppStyle = styled.div``
 function App() {
+  const props = useMyContext() 
+  
+  
   return (
-    <AppStyle>
-      <Global />
-      <Header />
-      <IntroductionFrame />
-      <Main />
-      <JourneySection />
-      <MyStack />
-      <Projects />
-      <Footer/>
-    </AppStyle>
+      <AppStyle tema={props.themes ?? false}>
+        <Global />
+        <Header />
+        <IntroductionFrame />
+        <Main />
+        <JourneySection />
+        <MyStack />
+        <Projects />
+        <Footer />
+      </AppStyle>
   )
 }
 

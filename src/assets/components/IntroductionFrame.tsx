@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import { StyleConfig } from "../config/styles.config";
 import Threads from "../Especial/ogl/Threads";
+import { useMyContext } from "../context/ThemeContext";
 
-const { percent10, FrameColor } = StyleConfig.light.colors
-const { whiteAndPurple } = StyleConfig.light.gradients
-const { calcTamanhoDeComponentes } = StyleConfig
-const StyleIntroductionFrame = styled.div`
-  color: #fff;
+const { dark , light , calcTamanhoDeComponentes} = StyleConfig
+const StyleIntroductionFrame = styled.div<{tema : boolean}>`
+  color: ${({tema}) => tema ? "white" : "black"};
   padding: 14rem ${calcTamanhoDeComponentes(92)};
-  background: ${FrameColor};
+  background: ${({tema}) => tema ? light.colors.FrameColor : dark.colors.Framecolor};
   position: relative;
   z-index: 1;
 
@@ -51,13 +50,13 @@ const StyleIntroductionFrame = styled.div`
 
 `;
 
-const MasterSpan = styled.span`
-  background: ${whiteAndPurple} ;
+const MasterSpan = styled.span<{tema : boolean}>`
+  background: ${({tema}) => tema ? light.gradients.whiteAndPurple : dark.gradients.blackAndPurple} ;
   background-clip: text;
   color: transparent;
   /* overflow-x: hidden; */
   width: 0%;
-  border-right: 4px solid ${percent10};
+  border-right: 4px solid ${light.colors.percent10};
   animation: 1s motionText steps(100) forwards;
 
   @keyframes motionText {
@@ -71,9 +70,10 @@ const MasterSpan = styled.span`
 
 `
 function IntroductionFrame() {
+  const {themes} = useMyContext()
 
   return (
-    <StyleIntroductionFrame>
+    <StyleIntroductionFrame tema={themes ?? true}>
       <Threads
         color={[0.5568627450980392,0.26666666666666666,0.8509803921568627]}
         amplitude={5}
@@ -82,7 +82,7 @@ function IntroductionFrame() {
       />
       <div className="conteiner">
         <h1>Olá, meu nome é Vitorio.</h1>
-        <h2>Eu sou um <MasterSpan>desenvolvedor backend</MasterSpan>.</h2>
+        <h2>Eu sou um <MasterSpan tema={themes ?? true}>desenvolvedor backend</MasterSpan>.</h2>
       </div>
     </StyleIntroductionFrame>
   )

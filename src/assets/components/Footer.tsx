@@ -1,18 +1,22 @@
 import styled from "styled-components";
 import { StyleConfig } from "../config/styles.config";
 import { FormEvent } from "react";
+import { useMyContext } from "../context/ThemeContext";
 const { FrameColor } = StyleConfig.light.colors
 const { percent10 } = StyleConfig.light.colors
 
-const StyleFooter = styled.footer`
+const StyleFooter = styled.footer<{tema : boolean}>`
 width: 100%;
 background: ${FrameColor};
+background: transparent;
 margin-top: 16rem;
 display: flex;
 justify-content: center;
 padding: 2rem;
 aside{
     h1{
+        
+        color: ${({tema}) => tema ?  "black"  : "#a8a8a8"  } ;
         font-size: 2rem;
     }
     h2{
@@ -20,7 +24,10 @@ aside{
     }
     h5,h2{
         font-weight: 300;
-        color: #a8a8a8;
+        color: ${({tema}) => tema ?  "#575757"  : "#a8a8a8"  } ;
+    }
+    h5{
+        width: 100%;
     }
     @keyframes back {
         to{
@@ -64,6 +71,7 @@ section{
         justify-content: center;
         align-items: center;
         flex-flow: column;
+        width: 100%;
         gap: .5rem;
         input , textarea {
             padding: .5rem;
@@ -72,6 +80,8 @@ section{
             background: #dfdfdf;
             border: 1px solid #343434;
             background: rgba(255, 255, 255, 0.05);
+            color: ${({tema}) => tema ?  "black"  : "white"  } ;
+            
 
         }
         textarea{
@@ -104,8 +114,10 @@ const send = (e: FormEvent<HTMLFormElement>) => {
 
 }
 function Footer() {
+    const {themes} = useMyContext()
+    const temas = themes ?? true
     return (
-        <StyleFooter>
+        <StyleFooter tema={temas}>
             <section>
                 <aside>
                     <h2>vamos conversar ?</h2>

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { StyleConfig } from "../config/styles.config";
 import { IoIosArrowForward } from "react-icons/io";
+import { useMyContext } from "../context/ThemeContext";
 
-const { calcTamanhoDeComponentes, light } = StyleConfig
-const { blackAndPurple } = StyleConfig.light.gradients
+const { calcTamanhoDeComponentes, light  , dark} = StyleConfig
 const StyleMain = styled.main`
 position: relative;
 z-index: 1;
@@ -65,9 +65,9 @@ img{
 
 `;
 
-export const TitleStyle = styled.h1`
+export const TitleStyle = styled.h1<{tema : boolean}>`
     font-weight: 600;
-    background: ${blackAndPurple};
+    background: ${({tema}) => tema ? light.gradients.blackAndPurple : dark.gradients.PurpleBlackAndPurple};
     background-clip: text;
     font-size: 2rem;
     color: transparent;
@@ -92,7 +92,7 @@ cursor: pointer;
     height: 1px;
     bottom: 0;
     width: 100%;
-    background:linear-gradient(to right,white,${light.colors.percent10});
+    background:linear-gradient(to right,transparent,${light.colors.percent10});
     transform-origin: left;
     transform: scaleX(0);
     transition: 1s;
@@ -109,12 +109,13 @@ cursor: pointer;
 
 `
 function Main() {
+    const {themes} = useMyContext()
     const date =new Date()
     const years = date.getFullYear() - 2006
     return (
         <StyleMain id="sobre-mim">
             <div className="conteinerHead">
-                <TitleStyle>Sobre mim</TitleStyle>
+                <TitleStyle tema={themes ?? true}>Sobre mim</TitleStyle>
             </div>
             <div className="conteinerMain">
                 <aside>

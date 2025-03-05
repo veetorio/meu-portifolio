@@ -4,6 +4,7 @@ import "swiper/swiper-bundle.css"
 import { IoCodeSlashOutline, IoLogoGithub } from "react-icons/io5";
 import { MdArrowOutward } from "react-icons/md";
 import { StyleConfig } from "../config/styles.config";
+import { useMyContext } from "../context/ThemeContext";
 
 
 
@@ -16,7 +17,7 @@ enum Gradients {
 
 
 const { percent10 } = StyleConfig.light.colors
-const StyleProjects = styled.section`
+const StyleProjects = styled.section<{tema : boolean}>`
     margin-top: 10rem;
     display: flex;
     align-items: center;
@@ -32,6 +33,7 @@ const StyleProjects = styled.section`
             display: flex;
         }
         .link{
+            background: transparent;
             margin-top: 3rem;
             width: 100%;
             padding: .5rem .25rem;
@@ -40,7 +42,7 @@ const StyleProjects = styled.section`
             gap: 1rem;
             justify-content: center;
             align-items: center; 
-            color: black;
+            color: ${({tema}) => tema ? "black" : "white"};
             border: 1px solid #6f6f6f;
             .i{
                 font-size: 2rem;
@@ -90,6 +92,7 @@ const ProjetoStyle = styled.section<{ typeProjeto: Gradients }>`
             }
         }
         button{
+            background: transparent;
             cursor: pointer;
             color: #3a3a3a;
             display: inline-flex;
@@ -99,7 +102,7 @@ const ProjetoStyle = styled.section<{ typeProjeto: Gradients }>`
             font-size: 1.5rem;
             height: 3rem;
             width: 3rem;
-            border: 1px solid #3a3a3a;
+            border: 1px solid #131313;
             border-radius: .5rem;
             &:hover{
                 color: ${percent10} ;
@@ -131,9 +134,11 @@ const Projeto = (props: { name: string, tipoProjeto: Gradients }) => {
     )
 }
 function Projects() {
+    const {themes} = useMyContext()
+    const temas = themes ?? true
     return (
-        <StyleProjects>
-            <TitleStyle>Projetos</TitleStyle>
+        <StyleProjects tema={temas}>
+            <TitleStyle tema={temas}>Projetos</TitleStyle>
             <div>
                 <div className="conteiner">
                     <Projeto tipoProjeto={Gradients.BACKEND} name="Projeto 1"></Projeto>

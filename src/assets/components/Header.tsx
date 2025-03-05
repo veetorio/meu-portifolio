@@ -2,21 +2,18 @@ import styled from "styled-components";
 import { StyleConfig } from "../config/styles.config";
 import { MdOutlineGTranslate } from "react-icons/md";
 import { IoMoonOutline } from "react-icons/io5";
+import { useMyContext } from "../context/ThemeContext";
 
-const { calcTamanhoDeComponentes, light } = StyleConfig
-const { colors } = light
+const { calcTamanhoDeComponentes, light , dark } = StyleConfig
+const { colors } = light  
 const { percent10, percent30 } = colors
 const sizeIcon = 40;
-// const setTranslate = () =>{
 
-// }
-// const setTheme = () =>{
 
-// }
-const StyleHeader = styled.header`
+const StyleHeader = styled.header<{tema : boolean}>`
 height: ${calcTamanhoDeComponentes(80)};
 width: 100%;
-background:#fff;
+background:${({tema}) => tema ? light.colors.percent60 : dark.colors.percent60};
 top: 0;
 position: fixed;
 z-index: 2;
@@ -39,12 +36,12 @@ z-index: 2;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: ${percent30};
+        color: ${({tema}) => tema ? percent10 : "white"};
     }
     .LightOrDark{
         background-color: ${percent30};
         border-radius: 50%;
-        color: #fff;
+        color: ${({tema}) => tema ? "white" : "black"};
         cursor: pointer;
     }
     .translateMode{
@@ -65,7 +62,7 @@ z-index: 2;
             font-size: 1.5rem;
             font-weight: 600;
             text-decoration: none;
-            color: black;
+            color: ${({tema}) => tema ? "black" : "white"};
             transition: .5s;
             cursor: pointer;
             &:hover{
@@ -87,12 +84,16 @@ z-index: 2;
     }
 `;
 function Header() {
+    const context = useMyContext()
+    const toggle = () => {
+        context.setThemeProvider();
+    }
     return (
-        <StyleHeader>
+        <StyleHeader tema={context.themes ?? false}>
             <div className="conteiner">
                 <div className="actions">
                     <div className="iconPage icon"><img src="../../../public/sonic-runners-svgrepo-com 1.svg" alt="" /></div>
-                    <button className="LightOrDark icon">
+                    <button className="LightOrDark icon" onClick={toggle}>
                         <IoMoonOutline />
                     </button>
                     <button className="translateMode icon">
