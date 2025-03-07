@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { StyleConfig } from "../config/styles.config";
 import { IoIosArrowForward } from "react-icons/io";
 import { useMyContext } from "../context/ThemeContext";
+import { UseTranslate } from "../context/TranslateContext";
+import { pt_en } from "../config/Translate";
 
 const { calcTamanhoDeComponentes, light, dark } = StyleConfig
 const StyleMain = styled.main`
@@ -115,20 +117,23 @@ export const Redirect = (url: string) => {
 function Main() {
     const { themes } = useMyContext()
     const date = new Date()
-    const years = date.getFullYear() - 2006
+    const age = date.getFullYear() - 2006
+    const translate = UseTranslate()
+    const {sobre} = translate?.lang === "pt_br" ? pt_en.pt : pt_en.en
+    
 
     return (
             <StyleMain id="sobre-mim">
                 <div className="conteinerHead">
-                    <TitleStyle tema={themes ?? true}>Sobre mim</TitleStyle>
+                    <TitleStyle tema={themes ?? true}>{sobre.title}</TitleStyle>
                 </div>
                 <div className="conteinerMain">
                     <aside>
-                        <h5>sou um maluco por tecnologia e sempre gostei de usar meus  conhecimentos para resolver problemas. Hoje estou cursando e engenharia da computação.</h5>
-                        <h2>Dev. backend & Engenheiro de computação</h2>
+                        <h5>{sobre.phrase}</h5>
+                        <h2>{sobre.profession}</h2>
                         <div>
                             <article>
-                                <h2>Contatos</h2>
+                                <h2>{sobre.contact}</h2>
                                 <ul>
                                     <li>
                                         <Contatos onClick={() => { Redirect("https://github.com/veetorio") }}>
@@ -148,16 +153,16 @@ function Main() {
                                 </ul>
                             </article>
                             <article>
-                                <h2>Detalhes</h2>
+                                <h2>{sobre.details.title}</h2>
                                 <ul>
                                     <li>
-                                        <span>Nome :</span><span className="details"> Ettore Vitorio</span>
+                                        <span>{sobre.details.name} :</span><span className="details"> Ettore Vitorio</span>
                                     </li>
                                     <li>
-                                        <span>Idade :</span><span className="details">{years} anos</span>
+                                        <span>{sobre.details.age} :</span><span className="details">{age} {translate?.lang === "pt_br" ? "anos" : "years"}</span>
                                     </li>
                                     <li>
-                                        <span>Nacionalidade :</span><span className="details">Brasileiro</span>
+                                        <span>{sobre.details.nationality[0]} :</span><span className="details">{sobre.details.nationality[1]}</span>
                                     </li>
                                 </ul>
                             </article>

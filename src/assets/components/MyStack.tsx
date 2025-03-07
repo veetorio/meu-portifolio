@@ -12,8 +12,10 @@ import MySql from "./shared/icons/MySql";
 import Git from "./shared/icons/Git";
 import Postgress from "./shared/icons/Postgres";
 import { useMyContext } from "../context/ThemeContext";
-const { calcTamanhoDeComponentes , light , dark } = StyleConfig
-const StyleMyStack = styled.div<{tema : boolean}>`
+import { pt_en } from "../config/Translate";
+import { UseTranslate } from "../context/TranslateContext";
+const { calcTamanhoDeComponentes, light, dark } = StyleConfig
+const StyleMyStack = styled.div<{ tema: boolean }>`
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -30,7 +32,7 @@ const StyleMyStack = styled.div<{tema : boolean}>`
             position: absolute;
             width: 2.5rem;
             height: 100%;
-            background: linear-gradient(to left,${({tema}) => tema ? light.colors.percent60 : dark.colors.percent60},transparent);
+            background: linear-gradient(to left,${({ tema }) => tema ? light.colors.percent60 : dark.colors.percent60},transparent);
             z-index: 1;
             right: 0;
             
@@ -43,7 +45,7 @@ const StyleMyStack = styled.div<{tema : boolean}>`
             left: 0;
             width: 2.5rem;
             height: 100%;
-            background: linear-gradient(to right,${({tema}) => tema ? light.colors.percent60 : dark.colors.percent60},transparent);
+            background: linear-gradient(to right,${({ tema }) => tema ? light.colors.percent60 : dark.colors.percent60},transparent);
         }
         .slide{
             display: flex;
@@ -80,36 +82,39 @@ const Item = styled.div`
 `
 
 function MyStack() {
-    const {themes} = useMyContext()
+    const { themes } = useMyContext()
+    const contextTranslate = UseTranslate()
+    const { stack } = contextTranslate?.lang === "pt_br" ? pt_en.pt : pt_en.en
+
 
     return (
         <StyleMyStack tema={themes ?? true} id="stack">
-            <TitleStyle tema={themes ?? true}>Minha Stack</TitleStyle>
+            <TitleStyle tema={themes ?? true}>{stack}</TitleStyle>
             <div className="conteiner">
                 <div className="slide">
-                    <Item className="item"><Spring/></Item>
-                    <Item className="item"><Javascript/></Item>
-                    <Item className="item"><Java/></Item>
-                    <Item className="item"><CssSvg/></Item>
-                    <Item className="item"><React/></Item>
-                    <Item className="item"><Html/></Item>
-                    <Item className="item"><Ts/></Item>
-                    <Item className="item"><MySql/></Item>
-                    <Item className="item"><Git/></Item>
-                    <Item className="item"><Postgress/></Item>
+                    <Item className="item"><Spring /></Item>
+                    <Item className="item"><Javascript /></Item>
+                    <Item className="item"><Java /></Item>
+                    <Item className="item"><CssSvg /></Item>
+                    <Item className="item"><React /></Item>
+                    <Item className="item"><Html /></Item>
+                    <Item className="item"><Ts /></Item>
+                    <Item className="item"><MySql /></Item>
+                    <Item className="item"><Git /></Item>
+                    <Item className="item"><Postgress /></Item>
 
                 </div>
                 <div className="slide">
-                    <Item className="item"><Spring/></Item>
-                    <Item className="item"><Javascript/></Item>
-                    <Item className="item"><Java/></Item>
-                    <Item className="item"><CssSvg/></Item>
-                    <Item className="item"><React/></Item>
-                    <Item className="item"><Html/></Item>
-                    <Item className="item"><Ts/></Item>
-                    <Item className="item"><MySql/></Item>
-                    <Item className="item"><Git/></Item>
-                    <Item className="item"><Postgress/></Item>
+                    <Item className="item"><Spring /></Item>
+                    <Item className="item"><Javascript /></Item>
+                    <Item className="item"><Java /></Item>
+                    <Item className="item"><CssSvg /></Item>
+                    <Item className="item"><React /></Item>
+                    <Item className="item"><Html /></Item>
+                    <Item className="item"><Ts /></Item>
+                    <Item className="item"><MySql /></Item>
+                    <Item className="item"><Git /></Item>
+                    <Item className="item"><Postgress /></Item>
 
                 </div>
             </div>

@@ -4,6 +4,8 @@ import { MdOutlineGTranslate } from "react-icons/md";
 import { IoMoonOutline } from "react-icons/io5";
 import { useMyContext } from "../context/ThemeContext";
 import Icon from "./shared/icons/Icons";
+import { UseTranslate } from "../context/TranslateContext";
+import { pt_en } from "../config/Translate";
 
 const { calcTamanhoDeComponentes, light , dark } = StyleConfig
 const { colors } = light  
@@ -85,27 +87,32 @@ z-index: 2;
     }
 `;
 function Header() {
-    const context = useMyContext()
+    const contextTheme = useMyContext()
+    const contextTranslate = UseTranslate()
+    const {header} = contextTranslate?.lang === "pt_br" ? pt_en.pt : pt_en.en
     const toggle = () => {
-        context.setThemeProvider();
+        contextTheme.setThemeProvider();
+    }
+    const translate = () => {
+        contextTranslate?.switchLang()
     }
     return (
-        <StyleHeader tema={context.themes ?? false}>
+        <StyleHeader tema={contextTheme.themes ?? false}>
             <div className="conteiner">
                 <div className="actions">
                     <div className="iconPage icon"><Icon/></div>
                     <button className="LightOrDark icon" onClick={toggle}>
                         <IoMoonOutline />
                     </button>
-                    <button className="translateMode icon">
+                    <button className="translateMode icon" onClick={translate}>
                         <MdOutlineGTranslate />
                     </button>
                 </div>
                 <div className="links">
-                    <a href="#sobre-mim">sobre</a>
-                    <a href="#jornada">jornada</a>
-                    <a href="#stack" translate="no">stack</a>
-                    <a href="#projetos" translate="no">projetos</a>
+                    <a href="#sobre-mim">{header.links[1]}</a>
+                    <a href="#jornada">{header.links[2]}</a>
+                    <a href="#stack" translate="no">{header.links[3]}</a>
+                    <a href="#projetos" translate="no">{header.links[4]}</a>
                 </div>
             </div>
         </StyleHeader>

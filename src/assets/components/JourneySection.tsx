@@ -3,6 +3,8 @@ import { StyleConfig } from "../config/styles.config";
 import { TitleStyle } from "./Main";
 import { useMyContext } from "../context/ThemeContext";
 import { InView } from "react-intersection-observer";
+import { UseTranslate } from "../context/TranslateContext";
+import { pt_en } from "../config/Translate";
 const { calcTamanhoDeComponentes, dark, light } = StyleConfig
 const { percent10 } = StyleConfig.light.colors
 
@@ -90,6 +92,7 @@ const ContentJourneyStyle = styled.div<{ tema: boolean }>`
 `
 const ContentJourney = ({ MasterTitle, hasSubtitle, listTitles, listSubtitles }: Li) => {
     const { themes } = useMyContext()
+   
     const temas = themes ?? true
     const renderLi = () => {
         return hasSubtitle ?
@@ -130,6 +133,8 @@ const ContentJourney = ({ MasterTitle, hasSubtitle, listTitles, listSubtitles }:
 function JourneySection() {
     const { themes } = useMyContext()
     const temas = themes ?? true
+    const contextTranslate = UseTranslate()
+    const { journey } = contextTranslate?.lang === "pt_br" ? pt_en.pt : pt_en.en
 
     return (
         <InView onChange={(el) => { console.log(el) }}>
@@ -137,33 +142,33 @@ function JourneySection() {
                 <section id="jornada">
                     <div className="jornadaHead">
                         <TitleStyle tema={temas}>
-                            Jornada do herói
+                            {journey.title}
                         </TitleStyle>
                     </div>
                     <div className="conteiner">
                         <ContentJourney
                             hasSubtitle={true}
-                            MasterTitle="Educação"
-                            listSubtitles={["2020-2024", "2022-2024", "2024-cursando"]}
-                            listTitles={["Ensino Médio - C.E Liceu maranhense", "Curso - Incode Tech School", "Ensino Superior - Universidade CEUMA"]}
+                            MasterTitle={journey.education.title}
+                            listSubtitles={journey.education[2]}
+                            listTitles={journey.education[1]}
                         />
                         <ContentJourney
                             hasSubtitle={false}
                             MasterTitle="Hard Skills"
                             listSubtitles={[]}
-                            listTitles={["Desenvolvimento Back-end Avançado", "Desenvolvimento front-end intermediário", "Desenvolvimento Mobile Android Iniciante"]}
+                            listTitles={journey.hard[1]}
                         />
                         <ContentJourney
                             hasSubtitle={false}
                             MasterTitle="Soft Skills"
                             listSubtitles={[]}
-                            listTitles={["Comunicativo", "Adaptabilidade", "Resiliente", "Criatividade", "Liderança"]}
+                            listTitles={journey.soft[1]}
                         />
                         <ContentJourney
                             hasSubtitle={false}
-                            MasterTitle="Premios"
+                            MasterTitle={journey.awards.title}
                             listSubtitles={[]}
-                            listTitles={["3° lugar - Startup Weekend 2022 Cidades Inteligentes"]}
+                            listTitles={journey.awards[1]}
                         />
                     </div>
                 </section>

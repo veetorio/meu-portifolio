@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { StyleConfig } from "../config/styles.config";
 import { FormEvent } from "react";
 import { useMyContext } from "../context/ThemeContext";
+import { pt_en } from "../config/Translate";
+import { UseTranslate } from "../context/TranslateContext";
 const { FrameColor } = StyleConfig.light.colors
 const { percent10 } = StyleConfig.light.colors
 
@@ -117,19 +119,21 @@ const send = (e: FormEvent<HTMLFormElement>) => {
 function Footer() {
     const {themes} = useMyContext()
     const temas = themes ?? true
+    const contextTranslate = UseTranslate()
+    const {footer} = contextTranslate?.lang === "pt_br" ? pt_en.pt : pt_en.en
     return (
         <StyleFooter tema={temas}>
             <section>
                 <aside>
-                    <h2>vamos conversar ?</h2>
-                    <h1>Contato</h1>
-                    <h5>Tem alguma pergunta ou projeto em mente? Sinta-se à vontade para entrar em contato.</h5>
+                    <h2>{footer.talk}</h2>
+                    <h1>{footer.contact}</h1>
+                    <h5>{footer.idea}</h5>
                 </aside>
                 <form onSubmit={send} method="post">
                     <input type="text"  name="name" placeholder="nome"/>
                     <input type="text"  name="email" placeholder="email"/>
                     <textarea name="message" placeholder="mensagem"/>
-                    <button type="submit">enviar</button>
+                    <button type="submit">{footer.send}</button>
                 </form>
             </section>
         </StyleFooter>

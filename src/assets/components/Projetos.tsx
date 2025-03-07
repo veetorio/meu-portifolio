@@ -5,6 +5,8 @@ import { IoCodeSlashOutline, IoLogoGithub } from "react-icons/io5";
 import { MdArrowOutward } from "react-icons/md";
 import { StyleConfig } from "../config/styles.config";
 import { useMyContext } from "../context/ThemeContext";
+import { pt_en } from "../config/Translate";
+import { UseTranslate } from "../context/TranslateContext";
 
 
 
@@ -17,7 +19,7 @@ enum Gradients {
 
 
 const { percent10 } = StyleConfig.light.colors
-const StyleProjects = styled.section<{tema : boolean}>`
+const StyleProjects = styled.section<{ tema: boolean }>`
     margin-top: 10rem;
     display: flex;
     align-items: center;
@@ -42,7 +44,7 @@ const StyleProjects = styled.section<{tema : boolean}>`
             gap: 1rem;
             justify-content: center;
             align-items: center; 
-            color: ${({tema}) => tema ? "black" : "white"};
+            color: ${({ tema }) => tema ? "black" : "white"};
             border: 1px solid #6f6f6f;
             .i{
                 font-size: 2rem;
@@ -115,6 +117,8 @@ const ProjetoStyle = styled.section<{ typeProjeto: Gradients }>`
 `;
 
 const Projeto = (props: { name: string, tipoProjeto: Gradients }) => {
+    const contextTranslate = UseTranslate()
+    const {projects} = contextTranslate?.lang === "pt_br" ? pt_en.pt : pt_en.en
     return (
         <ProjetoStyle typeProjeto={props.tipoProjeto}>
             <div className="layer">
@@ -123,7 +127,7 @@ const Projeto = (props: { name: string, tipoProjeto: Gradients }) => {
             <nav>
                 <div>
                     <h3>{props.name}</h3>
-                    <h4>em desenvolvimento</h4>
+                    <h4>{projects.status[0]}</h4>
                 </div>
                 <div>
                     <button><IoCodeSlashOutline className="i" /></button>
@@ -134,17 +138,19 @@ const Projeto = (props: { name: string, tipoProjeto: Gradients }) => {
     )
 }
 function Projects() {
-    const {themes} = useMyContext()
+    const { themes } = useMyContext()
+    const contextTranslate = UseTranslate()
+    const {projects} = contextTranslate?.lang === "pt_br" ? pt_en.pt : pt_en.en
     const temas = themes ?? true
     return (
         <StyleProjects tema={temas} id="projetos">
-            <TitleStyle tema={temas}>Projetos</TitleStyle>
+            <TitleStyle tema={temas}>{projects.title}</TitleStyle>
             <div>
                 <div className="conteiner">
                     <Projeto tipoProjeto={Gradients.BACKEND} name="Projeto 1"></Projeto>
                     <Projeto tipoProjeto={Gradients.FRONT} name="Projeto 2"></Projeto>
                 </div>
-                <button className="link" onClick={() => { Redirect("https://github.com/veetorio?tab=repositories") }}> <h3>quer ver mais projetos</h3><IoLogoGithub className="i"/></button>
+                <button className="link" onClick={() => { Redirect("https://github.com/veetorio?tab=repositories") }}> <h3>{projects.more}</h3><IoLogoGithub className="i" /></button>
             </div>
         </StyleProjects>
     )

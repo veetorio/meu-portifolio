@@ -2,12 +2,14 @@ import styled from "styled-components";
 import { StyleConfig } from "../config/styles.config";
 import Threads from "../Especial/ogl/Threads";
 import { useMyContext } from "../context/ThemeContext";
+import { UseTranslate } from "../context/TranslateContext";
+import { pt_en } from "../config/Translate";
 
-const { dark , light , calcTamanhoDeComponentes} = StyleConfig
-const StyleIntroductionFrame = styled.div<{tema : boolean}>`
-  color: ${({tema}) => tema ? "white" : "black"};
+const { dark, light, calcTamanhoDeComponentes } = StyleConfig
+const StyleIntroductionFrame = styled.div<{ tema: boolean }>`
+  color: ${({ tema }) => tema ? "white" : "black"};
   padding: 14rem ${calcTamanhoDeComponentes(92)};
-  background: ${({tema}) => tema ? light.colors.FrameColor : dark.colors.Framecolor};
+  background: ${({ tema }) => tema ? light.colors.FrameColor : dark.colors.Framecolor};
   position: relative;
   z-index: 1;
 
@@ -22,7 +24,7 @@ const StyleIntroductionFrame = styled.div<{tema : boolean}>`
   h1 , h2{
     
     transform-origin: left;
-    animation: .8s motion linear forwards;
+    animation: .9s motion linear forwards;
     font-size: 4rem;
     position: relative;
     z-index: 0;
@@ -32,7 +34,7 @@ const StyleIntroductionFrame = styled.div<{tema : boolean}>`
     display: none;
   }
   h2{
-    animation-duration: .9s;
+    animation-duration: 1s;
     display: flex;
     gap: 1rem;
     align-items: center;
@@ -40,9 +42,11 @@ const StyleIntroductionFrame = styled.div<{tema : boolean}>`
 
   @keyframes motion {
     to{
+      opacity: 1;
       transform: translateX(0);
     }from{
-      transform: translateX(-100px);
+      transform: translateX(-200px);
+      opacity: 0;
     }
     
   }
@@ -50,39 +54,40 @@ const StyleIntroductionFrame = styled.div<{tema : boolean}>`
 
 `;
 
-const MasterSpan = styled.span<{tema : boolean}>`
-  background: ${({tema}) => tema ? light.gradients.whiteAndPurple : dark.gradients.blackAndPurple} ;
+const MasterSpan = styled.span<{ tema: boolean }>`
+  background: ${({ tema }) => tema ? light.gradients.whiteAndPurple : dark.gradients.blackAndPurple} ;
   background-clip: text;
   color: transparent;
-  /* overflow-x: hidden; */
-  width: 0%;
-  border-right: 4px solid ${light.colors.percent10};
-  animation: 1s motionText steps(100) forwards;
-
-  @keyframes motionText {
-    from{
-      width: 0%;
-    }to{
-      width: 100%;
-    }
-
-  }
 
 `
 function IntroductionFrame() {
-  const {themes} = useMyContext()
+  const { themes } = useMyContext()
+  const contextTranslate = UseTranslate()
+  const texts = contextTranslate?.lang === "pt_br" ? pt_en.pt : pt_en.en
+  const Paragraph = ({ text }: { text: string[] }) => {
+    return (
+      <span>
+        <h2>{text[1]}
+          <MasterSpan tema={themes ?? true}>
+            {text[2]}
+          </MasterSpan>.
+        </h2>
+      </span>
+    )
+  }
+
 
   return (
     <StyleIntroductionFrame tema={themes ?? true}>
       <Threads
-        color={[0.5568627450980392,0.26666666666666666,0.8509803921568627]}
+        color={[0.5568627450980392, 0.26666666666666666, 0.8509803921568627]}
         amplitude={5}
         distance={0}
         enableMouseInteraction={true}
       />
       <div className="conteiner">
-        <h1>Olá, meu nome é Vitorio.</h1>
-        <h2>Eu sou um <MasterSpan tema={themes ?? true}>desenvolvedor backend</MasterSpan>.</h2>
+        <h1>{texts.introductionFrame[0]}</h1>
+        <Paragraph text={texts.introductionFrame} />
       </div>
     </StyleIntroductionFrame>
   )
