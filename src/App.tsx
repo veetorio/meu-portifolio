@@ -33,7 +33,8 @@ const Global = createGlobalStyle`
 const { dark , light } = StyleConfig
 const AppStyle = styled.div<Theme>`
     background: ${({tema}) => tema ? light.colors.percent60 : dark.colors.percent60};
-    color : ${({tema}) => tema ? "black" : "white"}
+    color : ${({tema}) => tema ? "black" : "white"};
+    position: relative;
     
     
   `

@@ -37,13 +37,49 @@ const StyleJourneySection = styled.section`
             grid-gap: ${calcTamanhoDeComponentes(26)} 4rem;
         }
     }
+
+    @media (max-width: 430px) {
+        display: flex;
+        flex: column;
+    }
     
 `;
+
 const ContentJourneyStyle = styled.div<{ tema: boolean }>`
     height: fit-content;
     display: flex;
     margin-left: 4rem;
     gap: ${calcTamanhoDeComponentes(14)};
+    
+    @media (max-width: 430px) {
+        background: blue;
+
+        aside{
+            .bar{
+                background: ${percent10};
+                height: 10%;
+                width: 2px;
+                position: relative;
+
+                &::after{
+                    position: absolute;
+                    content: " ";
+                    top: 0;
+                    border-radius: 50%;
+                    left: -4px;
+                    width: 10px;
+                    height: 10px;
+                    background: ${percent10};
+                }
+            }
+        }
+
+        
+
+
+    }
+     
+    
     aside{
         .bar{
             background: ${percent10};
@@ -92,7 +128,7 @@ const ContentJourneyStyle = styled.div<{ tema: boolean }>`
 `
 const ContentJourney = ({ MasterTitle, hasSubtitle, listTitles, listSubtitles }: Li) => {
     const { themes } = useMyContext()
-   
+
     const temas = themes ?? true
     const renderLi = () => {
         return hasSubtitle ?

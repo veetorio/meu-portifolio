@@ -15,7 +15,7 @@ const StyleIntroductionFrame = styled.div<{ tema: boolean }>`
 
   .thr{
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     left: 0;
     top: 0;
     width: 100%;
@@ -25,7 +25,7 @@ const StyleIntroductionFrame = styled.div<{ tema: boolean }>`
     
     transform-origin: left;
     animation: .9s motion linear forwards;
-    font-size: 4rem;
+    font-size: clamp(1.125rem, -0.1958rem + 4.9145vw, 4rem);
     position: relative;
     z-index: 0;
     white-space: nowrap;
@@ -34,10 +34,14 @@ const StyleIntroductionFrame = styled.div<{ tema: boolean }>`
     display: none;
   }
   h2{
+    font-size: clamp(2rem, 1.0812rem + 3.4188vw, 4rem);
     animation-duration: 1s;
     display: flex;
     gap: 1rem;
-    align-items: center;
+  }
+
+  @media (max-width: 430px) {
+    padding: 14rem ${calcTamanhoDeComponentes(42)};
   }
 
   @keyframes motion {
@@ -84,6 +88,7 @@ function IntroductionFrame() {
         amplitude={5}
         distance={0}
         enableMouseInteraction={true}
+
       />
       <div className="conteiner">
         <h1>{texts.introductionFrame[0]}</h1>

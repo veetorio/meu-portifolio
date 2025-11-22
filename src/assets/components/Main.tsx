@@ -8,17 +8,18 @@ import { pt_en } from "../config/Translate";
 const { calcTamanhoDeComponentes, light, dark } = StyleConfig
 const StyleMain = styled.main`
 position: relative;
-z-index: 1;
 margin: 10rem ${calcTamanhoDeComponentes(110)};
 padding: ${calcTamanhoDeComponentes(12)} ${calcTamanhoDeComponentes(100)};
 display: flex;
 flex-flow: column wrap;
-.conteinerHead{
-    
-}
+
 .conteinerMain{
     display:flex ;
+    flex-flow: row wrap;
     gap: 4rem;
+    h2 { 
+        font-size: clamp(1.125rem, 0.9527rem + 0.641vw, 1.5rem);
+    }
     aside{
         h5{
             width: ${calcTamanhoDeComponentes(456)};
@@ -35,6 +36,7 @@ flex-flow: column wrap;
                     margin-top: 1rem;
                     margin-bottom: 1rem;
                     font-weight: 400;
+                    font-size: clamp(1.125rem, 0.9527rem + 0.641vw, 1.5rem);
                 }
                 ul{
                     display: flex;
@@ -56,15 +58,36 @@ flex-flow: column wrap;
     }
 }
 
-
 img{
     height: 300px;
     width: 300px;
     background: #686868;
 }
 
+@media (max-width: 430px) {
+    margin: auto;
+    padding: ${calcTamanhoDeComponentes(16)} ${calcTamanhoDeComponentes(52)};
+    .conteinerHead {
+        display: flex;
+        justify-content: center;
+    }
+    .conteinerMain{
+        aside {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;
+        h5{
+            width: ${calcTamanhoDeComponentes(300)};
+        }
+    }
+    img { 
+        display: none;
+    }
+}
     
-
+}
+    
 `;
 const Contatos = styled.div`
 display: flex;
@@ -74,7 +97,10 @@ width:10rem;
 position: relative;
 cursor: pointer;
 
-
+@media (max-width: 430px) {
+    background-color: pink;
+    
+}
 &::after{
     content: " ";
     position: absolute;
@@ -119,58 +145,64 @@ function Main() {
     const date = new Date()
     const age = date.getFullYear() - 2006
     const translate = UseTranslate()
-    const {sobre} = translate?.lang === "pt_br" ? pt_en.pt : pt_en.en
-    
+    const { sobre } = translate?.lang === "pt_br" ? pt_en.pt : pt_en.en
+
 
     return (
-            <StyleMain id="sobre-mim">
-                <div className="conteinerHead">
-                    <TitleStyle tema={themes ?? true}>{sobre.title}</TitleStyle>
-                </div>
-                <div className="conteinerMain">
-                    <aside>
-                        <h5>{sobre.phrase}</h5>
-                        <h2>{sobre.profession}</h2>
-                        <div>
-                            <article>
-                                <h2>{sobre.contact}</h2>
-                                <ul>
-                                    <li>
-                                        <Contatos onClick={() => { Redirect("https://github.com/veetorio") }}>
-                                            <span>GitHub</span><IoIosArrowForward className="iconArrow" />
-                                        </Contatos>
-                                    </li>
-                                    <li>
-                                        <Contatos onClick={() => { Redirect("https://www.linkedin.com/in/ettore-vitorio-b38135280/") }}>
-                                            <span>Linkedin</span><IoIosArrowForward className="iconArrow" />
-                                        </Contatos>
-                                    </li>
-                                    <li>
-                                        <Contatos onClick={() => { Redirect("../../../public/Currículo (4).pdf") }}>
-                                            <span>CV</span><IoIosArrowForward className="iconArrow" />
-                                        </Contatos>
-                                    </li>
-                                </ul>
-                            </article>
-                            <article>
-                                <h2>{sobre.details.title}</h2>
-                                <ul>
-                                    <li>
-                                        <span>{sobre.details.name} :</span><span className="details"> Ettore Vitorio</span>
-                                    </li>
-                                    <li>
-                                        <span>{sobre.details.age} :</span><span className="details">{age} {translate?.lang === "pt_br" ? "anos" : "years"}</span>
-                                    </li>
-                                    <li>
-                                        <span>{sobre.details.nationality[0]} :</span><span className="details">{sobre.details.nationality[1]}</span>
-                                    </li>
-                                </ul>
-                            </article>
-                        </div>
-                    </aside>
-                    <img src="../../../public/image.png" alt="" />
-                </div>
-            </StyleMain >
+        <StyleMain id="sobre-mim">
+            <div className="conteinerHead">
+                <TitleStyle tema={themes ?? true}>{sobre.title}</TitleStyle>
+            </div>
+            <div className="conteinerMain">
+                <aside>
+                    <h5>{sobre.phrase}</h5>
+                    <h2>{sobre.profession}</h2>
+                    <div>
+                        <article>
+                            <h2>{sobre.contact}</h2>
+                            <ul>
+                                <li>
+                                    <Contatos onClick={() => { Redirect("https://github.com/veetorio") }}>
+                                        <span>GitHub</span><IoIosArrowForward className="iconArrow" />
+                                    </Contatos>
+                                </li>
+                                <li>
+                                    <Contatos onClick={() => { Redirect("https://www.linkedin.com/in/ettore-vitorio-b38135280/") }}>
+                                        <span>Linkedin</span><IoIosArrowForward className="iconArrow" />
+                                    </Contatos>
+                                </li>
+                                <li>
+                                    <Contatos onClick={() => {
+                                        const link = document.createElement("a");
+                                        link.download = 'curriculo';
+                                        link.href = "../../../public/Currículo (4).pdf";
+                                        link.click();
+
+                                    }}>
+                                        <span>CV</span><IoIosArrowForward className="iconArrow" />
+                                    </Contatos>
+                                </li>
+                            </ul>
+                        </article>
+                        <article>
+                            <h2>{sobre.details.title}</h2>
+                            <ul>
+                                <li>
+                                    <span>{sobre.details.name} :</span><span className="details"> Ettore Vitorio</span>
+                                </li>
+                                <li>
+                                    <span>{sobre.details.age} :</span><span className="details">{age} {translate?.lang === "pt_br" ? "anos" : "years"}</span>
+                                </li>
+                                <li>
+                                    <span>{sobre.details.nationality[0]} :</span><span className="details">{sobre.details.nationality[1]}</span>
+                                </li>
+                            </ul>
+                        </article>
+                    </div>
+                </aside>
+                <img src="../../../public/image.png" alt="" />
+            </div>
+        </StyleMain >
     )
 }
 export default Main

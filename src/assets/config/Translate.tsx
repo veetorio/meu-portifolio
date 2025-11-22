@@ -8,11 +8,11 @@ export const pt_en = {
                 4: "Projects"
             }
         },
-        introductionFrame: ["Hello, my name's vitorio.", "i'm a ", "backend developer"],
+        introductionFrame: ["Hello, my name's vitorio.", "i'm a ", "developer"],
         sobre: {
             title: "About",
             phrase: "i am crazy by technolgy and like use my knowledge to solve problems",
-            profession: "Dev. Backend  & Computation Engineer",
+            profession: "Developer & Computation Engineer",
             contact: "Contact",
             details: {
                 title: "Details",
@@ -61,11 +61,11 @@ export const pt_en = {
                 4: "Projetos"
             }
         },
-        introductionFrame: ["Ola, meu nome é Vitorio.", "Eu sou um", "desenvolvedor backend"],
+        introductionFrame: ["Ola, meu nome é Vitorio.", "Eu sou um", "desenvolvedor"],
         sobre: {
             title: "Sobre",
             phrase: "eu sou maluco por tecnologia e gosto de usar meus conhecimentos para resolver problemas",
-            profession: "Dev. Backend  & Engenheiro da computação",
+            profession: "Desenvolvedor  & Engenheiro da computação",
             contact: "Contatos",
             details: {
                 title: "Detalhes",

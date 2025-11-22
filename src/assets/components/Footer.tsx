@@ -15,6 +15,14 @@ margin-top: 16rem;
 display: flex;
 justify-content: center;
 padding: 2rem;
+
+@media (max-width: 430px) {
+    section{
+        flex-flow: row wrap;
+
+    }
+    
+}
 aside{
     h1{
         
