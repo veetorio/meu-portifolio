@@ -200,7 +200,7 @@ function Main() {
                         </article>
                     </div>
                 </aside>
-                <img src="perfil/perfil.png" alt="" />
+                <img src="/perfil/perfil.png" alt="" />
             </div>
         </StyleMain >
     )
