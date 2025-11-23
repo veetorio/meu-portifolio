@@ -61,6 +61,7 @@ flex-flow: column wrap;
 img{
     height: 300px;
     width: 300px;
+    object-fit: cover;
     background: #686868;
 }
 
