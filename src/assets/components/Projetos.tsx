@@ -153,7 +153,7 @@ const Projeto = (props: ProjetoProps) => {
         <ProjetoStyle>
             <div className="layer">
                 <div className="content">
-                    <img src={props.src ?? "../../../public/mockups/default.png"} alt="" />
+                    <img src={props.src ?? "/public/mockups/default.png"} alt="" />
                 </div>
             </div>
             <nav>
@@ -181,8 +181,8 @@ function Projects() {
             <TitleStyle tema={temas}>{projects.title}</TitleStyle>
             <div>
                 <div className="conteiner">
-                    <Projeto src="../../../public/mockups/MOCKUPS (1).png" linkDoDeploy="https://expo.dev/accounts/vee-dev/projects/super_hat/builds/866a499f-622a-4b76-acdd-a716589b8454" linkDoProjeto="https://github.com/veetorio/Beary-App" tipoDoProjeto={TipoProjeto.MOBILE} name="Beary"></Projeto>
-                    <Projeto src="../../../public/mockups/pollen.png" linkDoProjeto="https://github.com/veetorio/pollen-api" tipoDoProjeto={TipoProjeto.BACKEND} name="Pollen API"></Projeto>
+                    <Projeto src="/public/mockups/MOCKUPS (1).png" linkDoDeploy="https://expo.dev/accounts/vee-dev/projects/super_hat/builds/866a499f-622a-4b76-acdd-a716589b8454" linkDoProjeto="https://github.com/veetorio/Beary-App" tipoDoProjeto={TipoProjeto.MOBILE} name="Beary"></Projeto>
+                    <Projeto src="/public/mockups/pollen.png" linkDoProjeto="https://github.com/veetorio/pollen-api" tipoDoProjeto={TipoProjeto.BACKEND} name="Pollen API"></Projeto>
                     <Projeto tipoDoProjeto={TipoProjeto.BACKEND}></Projeto>
                     <Projeto tipoDoProjeto={TipoProjeto.MOBILE}></Projeto>
                 </div>
